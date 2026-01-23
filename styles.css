@@ -12,6 +12,7 @@
     --light-bg: #f8f9fa;
     --text-dark: #333;
     --text-light: #fff;
+    --text-muted: #666;
     --card-bg: #ffffff;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 8px 12px rgba(0, 0, 0, 0.15);
@@ -176,7 +177,7 @@ section {
 }
 
 .expertise-card p {
-    color: #666;
+    color: var(--text-muted);
     line-height: 1.6;
 }
 
@@ -213,7 +214,7 @@ section {
 }
 
 .project-card p {
-    color: #666;
+    color: var(--text-muted);
     margin-bottom: 1.5rem;
 }
 
