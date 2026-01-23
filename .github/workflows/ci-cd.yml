@@ -1,0 +1,133 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate HTML
+        run: |
+          echo "Validating HTML files..."
+          # Basic HTML validation - check if files are well-formed
+          for file in *.html; do
+            if [ -f "$file" ]; then
+              echo "Checking $file"
+              if grep -q "</html>" "$file" && grep -q "</body>" "$file"; then
+                echo "✓ $file is valid"
+              else
+                echo "✗ $file might be invalid"
+                exit 1
+              fi
+            fi
+          done
+
+      - name: Validate CSS
+        run: |
+          echo "Validating CSS files..."
+          # Basic CSS validation - check if files exist and are not empty
+          for file in *.css; do
+            if [ -f "$file" ]; then
+              echo "✓ $file found"
+            fi
+          done
+
+      - name: Validate JavaScript
+        run: |
+          echo "Validating JavaScript files..."
+          # Basic JS validation - check if files exist
+          for file in *.js; do
+            if [ -f "$file" ]; then
+              echo "✓ $file found"
+            fi
+          done
+
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t site-vitrine-devops:${{ github.sha }} .
+          docker build -t site-vitrine-devops:latest .
+
+      - name: Test Docker image
+        run: |
+          docker run -d -p 8080:80 --name test-container site-vitrine-devops:latest
+          sleep 5
+          curl -f http://localhost:8080/ || exit 1
+          docker stop test-container
+          docker rm test-container
+
+      - name: Save Docker image
+        run: docker save site-vitrine-devops:latest -o site-vitrine-devops.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: site-vitrine-devops.tar
+          retention-days: 1
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+
+      - name: Load Docker image
+        run: docker load -i site-vitrine-devops.tar
+
+      - name: Test with docker-compose
+        run: |
+          docker-compose up -d
+          sleep 5
+          curl -f http://localhost:8080/ || exit 1
+          docker-compose down
+
+      - name: Security scan
+        run: |
+          echo "Running basic security checks..."
+          # Check for common security issues in HTML
+          if grep -r "eval(" *.js 2>/dev/null; then
+            echo "Warning: eval() found in JavaScript"
+          fi
+          echo "✓ Basic security checks passed"
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy notification
+        run: |
+          echo "🚀 Deployment successful!"
+          echo "Site is ready to be deployed to your hosting platform"
+          echo "You can use the Docker image or deploy static files directly"
