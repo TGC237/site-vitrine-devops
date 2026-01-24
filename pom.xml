@@ -2,15 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.0</version>
     </parent>
+
     <groupId>com.tgc</groupId>
     <artifactId>vitrine-devops</artifactId>
     <version>1.0.0-RELEASE</version>
     <name>Site Vitrine Expert DevOps</name>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -21,29 +24,34 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
     </dependencies>
-    <distributionManagement>
-	<repository>
-            <id>maven-releases</id> <url>https://tgc-nexus.duckdns.org/repository/maven-releases/</url>
-        </repository>
 
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>https://tgc-nexus.duckdns.org/repository/maven-releases/</url>
+        </repository>
         <snapshotRepository>
-            <id>maven-snapshots</id> <url>https://tgc-nexus.duckdns.org/repository/maven-snapshots/</url>
+            <id>maven-snapshots</id>
+            <url>https://tgc-nexus.duckdns.org/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
     <build>
-	 <plugins>
-	     <plugin>
-	         <groupId>org.springframework.boot</groupId>
-	         <artifactId>spring-boot-maven-plugin</artifactId>
-	         <version>${project.parent.version}</version>
-	         <executions>
-	            <execution>
-	               <goals>
-	                 <goal>repackage</goal>
-	               </goals>
-	            </execution>
-	         </executions>
-	      </plugin>
-	  </plugins>
-     </build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.tgc.vitrine.VitrineApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
