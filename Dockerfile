@@ -5,7 +5,7 @@ WORKDIR /app
 
 # On utilise un wildcard pour être sûr de trouver le jar, 
 # peu importe son nom exact dans le dossier target
-COPY target/*.jar /app/app.jar
+COPY target/*-RELEASE.jar /app/app.jar
 
 # On s'assure que le fichier est lisible
 RUN chmod 644 /app/app.jar

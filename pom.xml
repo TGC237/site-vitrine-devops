@@ -30,4 +30,20 @@
             <id>maven-snapshots</id> <url>https://tgc-nexus.duckdns.org/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+    <build>
+	 <plugins>
+	     <plugin>
+	         <groupId>org.springframework.boot</groupId>
+	         <artifactId>spring-boot-maven-plugin</artifactId>
+	         <version>${project.parent.version}</version>
+	         <executions>
+	            <execution>
+	               <goals>
+	                 <goal>repackage</goal>
+	               </goals>
+	            </execution>
+	         </executions>
+	      </plugin>
+	  </plugins>
+     </build>
 </project>
