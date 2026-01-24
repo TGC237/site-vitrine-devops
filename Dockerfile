@@ -1,5 +1,5 @@
 # On part d'une version légère de Java 17
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-alpine
 
 # On crée un dossier pour l'application
 WORKDIR /app
