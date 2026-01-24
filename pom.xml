@@ -22,9 +22,12 @@
         </dependency>
     </dependencies>
     <distributionManagement>
-        <repository>
-            <id>maven-releases</id>
-            <url>http://tgc-nexus.duckdns.org/repository/maven-releases/</url>
+	<repository>
+            <id>maven-releases</id> <url>https://tgc-nexus.duckdns.org/repository/maven-releases/</url>
         </repository>
+
+        <snapshotRepository>
+            <id>maven-snapshots</id> <url>https://tgc-nexus.duckdns.org/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 </project>
