@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>TGC - Expertise DevOps</title>
@@ -15,5 +15,314 @@
         <p>Ce site a été déployé automatiquement via <strong>Jenkins</strong> et <strong>Nexus</strong>.</p>
         <p>Statut de l'infrastructure : <span class="status">OPÉRATIONNEL</span></p>
     </div>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGC - Expertise DevOps</title>
+    <style>
+        :root {
+            --primary: #00ff88;  /* Vert Cyber (Ta couleur signature) */
+            --bg: #0f172a;       /* Bleu Nuit Profond */
+            --card-bg: #1e293b;  /* Gris Bleu */
+            --text: #f8fafc;     /* Blanc */
+            --text-muted: #94a3b8; /* Gris clair */
+            --nav-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- NAVBAR (Menu du haut) --- */
+        .navbar {
+            width: 100%;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .navbar .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- CONTENU PRINCIPAL --- */
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            margin-top: 140px; /* Marge pour ne pas être caché par le menu */
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        /* Titre Principal */
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .role {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- BADGE STATUT (Le point vert qui clignote) --- */
+        .status-container {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 255, 136, 0.1);
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--primary);
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+        }
+
+        .status-dot {
+            height: 12px;
+            width: 12px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+
+        /* --- TEXTES D'ACCUEIL --- */
+        p.welcome-text {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            max-width: 800px;
+            margin: 0 auto 15px auto;
+            line-height: 1.6;
+        }
+        
+        p.signature {
+            font-size: 1.4rem;
+            color: var(--primary); /* En vert */
+            margin-bottom: 50px;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+        }
+
+        /* --- BOUTONS --- */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--bg);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 2px solid #334155;
+        }
+
+        .btn-secondary:hover {
+            border-color: #f8fafc;
+            color: #f8fafc;
+        }
+
+        /* --- GRID CARDS (Les 4 blocs du bas) --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            text-align: left;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            width: 100%;
+            text-align: center;
+            border-top: 1px solid #1e293b;
+            background-color: #0b1120;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">TGC | EXPERT SI</div>
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+            <a href="/architecture">Architecture</a>
+            <a href="/documentation">Documentation</a>
+            <a href="https://github.com/tgc237/site-vitrine-devops" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <h1>USINE LOGICIELLE TGC ACTIVÉE</h1>
+        <div class="role">Expertise en Informatique & Systèmes d'Information</div>
+
+        <div class="status-container">
+            <span class="status-dot"></span>
+            <span>STATUT DE L'INFRASTRUCTURE : OPÉRATIONNEL</span>
+        </div>
+
+        <p class="welcome-text">
+            Ce site a été déployé automatiquement via <strong>Jenkins</strong> et <strong>Nexus</strong>.
+            C'est une démonstration technique destinée aux étudiants, jeunes diplômés et futurs experts.
+        </p>
+        <p class="signature">
+            "Bienvenue dans mon monde."
+        </p>
+
+        <div class="btn-container">
+            <a href="/architecture" class="btn btn-primary">
+                👁️ Voir l'Architecture
+            </a>
+            <a href="/documentation" class="btn btn-secondary">
+                📄 Documentation Expert
+            </a>
+        </div>
+
+        <div class="btn-container" style="gap: 15px; margin-top: -20px;">
+            <a href="https://tgc-sonar.duckdns.org" target="_blank" class="btn btn-secondary" style="font-size: 0.8rem; padding: 8px 15px;">🔍 Audit SonarQube</a>
+            <a href="https://tgc-nexus.duckdns.org" target="_blank" class="btn btn-secondary" style="font-size: 0.8rem; padding: 8px 15px;">📦 Dépôt Nexus</a>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>🚀 Jenkins CI/CD</h3>
+                <p>Pipeline automatisé sans intervention humaine.</p>
+            </div>
+            <div class="card">
+                <h3>🛡️ Sécurité (DevSecOps)</h3>
+                <p>Scan de vulnérabilités et HTTPS strict.</p>
+            </div>
+            <div class="card">
+                <h3>🐳 Conteneurisation</h3>
+                <p>Isolation Docker et Orchestration réseau.</p>
+            </div>
+            <div class="card">
+                <h3>🎓 Pédagogie</h3>
+                <p>Référence technique pour les métiers de l'IT.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 TGC Engineering. Infrastructure de référence pour l'enseignement DevOps.
+    </footer>
+
 </body>
 </html>
