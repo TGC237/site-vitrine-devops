@@ -1,5 +1,5 @@
-# On part d'une version légère de Java 21
-FROM eclipse-temurin:21-jre-alpine
+# On part d'une version légère de Java 17
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
