@@ -1,0 +1,19 @@
+<div th:fragment="header-nav" xmlns:th="http://www.thymeleaf.org">
+    <nav style="background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #00ff88; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box;">
+        
+        <div style="font-weight: bold; color: #00ff88; letter-spacing: 2px; font-family: 'Courier New', monospace;">
+            TGC | <span style="color: #fff;">EXPERT SI</span>
+        </div>
+
+        <div class="nav-links" style="display: flex; gap: 20px;">
+            <a th:href="@{/}" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: 0.3s;">ACCUEIL</a>
+            <a th:href="@{/expertise/infrastructure}" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem;">INFRA</a>
+            <a th:href="@{/expertise/security}" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem;">DEVSECOPS</a>
+            <a th:href="@{/expertise/architecture}" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem;">ARCHI</a>
+            <a th:href="@{/expertise/observability}" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem;">SRE</a>
+            <a th:href="@{/expertise/automation}" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem;">AUTOMATION</a>
+            <a th:href="@{/expertise/aiops}" style="color: #00ff88; text-decoration: none; font-size: 0.85rem; border: 1px solid #00ff88; padding: 2px 8px; border-radius: 4px;">AIOPS</a>
+        </div>
+    </nav>
+    <div style="height: 70px;"></div>
+</div>
