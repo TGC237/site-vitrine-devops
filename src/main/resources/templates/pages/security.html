@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TGC | SÉCURITÉ & AUDIT</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: header-nav}"></div>
+    <section class="detail-section">
+        <div class="hero">
+            <h1 class="cyber-title">SÉCURITÉ & AUDIT</h1>
+            <p style="color: var(--text-muted)">Le pilier DevSecOps : Intégrer la confiance dès le code source.</p>
+        </div>
+        <div class="tool-card">
+            <h2>🛡️ Audit Statique (SAST) avec SonarQube</h2>
+            <p><strong>Pourquoi ?</strong> Détecter les vulnérabilités et la dette technique avant la mise en production.</p>
+            <p><strong>Mise en place :</strong> Intégré dans le pipeline Jenkins, il analyse chaque commit.</p>
+            <p><strong>Problème courant :</strong> Les faux positifs qui ralentissent le sprint.</p>
+            <p><strong>But :</strong> Zéro faille critique en production.</p>
+        </div>
+    </section>
+</body>
+</html>
