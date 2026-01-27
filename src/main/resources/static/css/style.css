@@ -1,0 +1,113 @@
+/* --- Variables Thème Cyber TGC --- */
+:root {
+    --primary: #00ff88;      /* Vert Néon */
+    --secondary: #60a5fa;    /* Bleu IA */
+    --bg: #0f172a;           /* Bleu Sombre Profond */
+    --card-bg: #1e293b;      /* Couleur des cartes */
+    --text: #f8fafc;         /* Blanc cassé */
+    --text-muted: #94a3b8;   /* Texte secondaire */
+    --accent: #00ff88;
+}
+
+/* --- Base --- */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding-top: 100px; /* Espace pour la navbar fixe */
+    line-height: 1.6;
+}
+
+/* --- Hero Section --- */
+.hero {
+    text-align: center;
+    padding: 3rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cyber-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--primary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.dot-pulse {
+    height: 8px;
+    width: 8px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    box-shadow: 0 0 8px var(--primary);
+}
+
+/* --- Grid Système (Ce qui manquait sur ta capture) --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Cartes Expertise --- */
+.expert-card {
+    background: var(--card-bg);
+    border: 1px solid #334155;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.expert-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.metier-tag {
+    color: var(--primary);
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.expert-card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.expert-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* --- Liens Nav-bar (Spécifique) --- */
+.nav-links a:hover {
+    color: var(--primary) !important;
+}
