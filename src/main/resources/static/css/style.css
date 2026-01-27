@@ -1,113 +1,154 @@
-/* --- Variables Thème Cyber TGC --- */
+/* ==========================================================================
+   TGC EXPERT SI - GLOBAL CYBER-STYLE
+   ========================================================================== */
+
 :root {
-    --primary: #00ff88;      /* Vert Néon */
-    --secondary: #60a5fa;    /* Bleu IA */
-    --bg: #0f172a;           /* Bleu Sombre Profond */
-    --card-bg: #1e293b;      /* Couleur des cartes */
-    --text: #f8fafc;         /* Blanc cassé */
-    --text-muted: #94a3b8;   /* Texte secondaire */
-    --accent: #00ff88;
+    --primary: #00ff88;    /* Vert néon (Success/Operationnel) */
+    --secondary: #00bfff;  /* Bleu Tech (IA/Architecture) */
+    --danger: #ff4757;     /* Rouge (Alertes/Failles) */
+    --bg-dark: #0f172a;    /* Fond principal */
+    --bg-light: #1e293b;   /* Fond des cartes */
+    --border: #334155;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --nav-height: 70px;
 }
 
-/* --- Base --- */
+* { box-sizing: border-box; }
+
 body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
     margin: 0;
-    padding-top: 100px; /* Espace pour la navbar fixe */
-    line-height: 1.6;
+    padding: 0;
+    overflow-x: hidden;
 }
 
-/* --- Hero Section --- */
+/* --- NAVIGATION --- */
+.cyber-nav {
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    height: var(--nav-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+/* --- HERO & TITRES --- */
 .hero {
+    padding: 120px 20px 60px;
+    background: linear-gradient(180deg, #111827 0%, var(--bg-dark) 100%);
     text-align: center;
-    padding: 3rem 2rem;
-    max-width: 800px;
-    margin: 0 auto;
 }
 
-.cyber-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: #fff;
-    margin-bottom: 1rem;
+h1.cyber-title {
+    font-size: 2.8rem;
+    color: var(--secondary);
     text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
 }
 
 .status-badge {
     display: inline-flex;
     align-items: center;
-    background: rgba(0, 255, 136, 0.1);
-    color: var(--primary);
-    padding: 5px 15px;
-    border-radius: 20px;
     border: 1px solid var(--primary);
-    font-size: 0.8rem;
+    padding: 8px 25px;
+    border-radius: 50px;
+    font-size: 0.9rem;
     font-weight: bold;
-    margin-bottom: 1.5rem;
+    color: white;
+    background: rgba(0, 255, 136, 0.05);
 }
 
 .dot-pulse {
-    height: 8px;
-    width: 8px;
+    height: 12px; width: 12px;
     background-color: var(--primary);
     border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px;
-    box-shadow: 0 0 8px var(--primary);
+    margin-right: 12px;
+    box-shadow: 0 0 15px var(--primary);
+    animation: pulse 2s infinite;
 }
 
-/* --- Grid Système (Ce qui manquait sur ta capture) --- */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- GRILLE DE COMPÉTENCES (CARDS) --- */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem 5%;
+    gap: 30px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 40px auto;
+    padding: 0 25px;
 }
 
-/* --- Cartes Expertise --- */
 .expert-card {
-    background: var(--card-bg);
-    border: 1px solid #334155;
-    padding: 1.5rem;
+    background: var(--bg-light);
+    border: 1px solid var(--border);
     border-radius: 12px;
+    padding: 30px;
+    transition: all 0.3s ease;
     text-decoration: none;
     color: inherit;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
+    display: block;
 }
 
 .expert-card:hover {
     border-color: var(--primary);
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
 }
 
-.metier-tag {
-    color: var(--primary);
+.card-tag {
     font-size: 0.7rem;
-    font-weight: bold;
+    font-weight: 800;
+    color: var(--secondary);
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
 }
 
-.expert-card h3 {
-    margin: 0.5rem 0;
-    font-size: 1.25rem;
+/* --- BOUTONS --- */
+.btn-cyber {
+    padding: 12px 25px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    background: rgba(255,255,255,0.05);
 }
 
-.expert-card p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 0;
+.btn-cyber:hover {
+    background: var(--primary);
+    color: var(--bg-dark);
+    border-color: var(--primary);
 }
 
-/* --- Liens Nav-bar (Spécifique) --- */
-.nav-links a:hover {
-    color: var(--primary) !important;
+/* --- SPÉCIFIQUE PAGES MÉTIERS (Contenu) --- */
+.content-section {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 40px;
+    background: var(--bg-light);
+    border-radius: 15px;
+    border-left: 4px solid var(--secondary);
+}
+
+code {
+    background: #000;
+    color: var(--primary);
+    padding: 2px 6px;
+    border-radius: 4px;
 }
