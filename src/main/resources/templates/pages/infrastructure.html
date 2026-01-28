@@ -16,76 +16,95 @@
         <p><strong>Problème :</strong> La gestion des volumes et la persistance des données.</p>
     </div>
 </section>
-<section id="infrastructure" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center mb-5">🚀 Infrastructure & Cloud : L'Architecture "Saint Graal"</h2>
-        
+
+<div class="container my-5 shadow-lg p-5 bg-white rounded">
+    
+    <header class="border-bottom pb-4 mb-5 text-center">
+        <h1 class="display-4 fw-bold text-dark">📑 Documentation Technique : Infrastructure & Cloud</h1>
+        <p class="lead text-muted">Étude de cas : Déploiement d'une plateforme industrielle sécurisée et automatisée.</p>
+        <div class="d-flex justify-content-center gap-2">
+            <span class="badge bg-primary">Cloud-Native</span>
+            <span class="badge bg-dark">Linux Debian</span>
+            <span class="badge bg-success">Docker Expert</span>
+            <span class="badge bg-info">DevSecOps</span>
+        </div>
+    </header>
+
+    <section class="mb-5">
+        <h2 class="h3 border-start border-4 border-primary ps-3 mb-4 text-primary">I. Philosophie de Conception : Infrastructure-as-Code & Agnosticisme Cloud</h2>
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <p>Pour ce projet, nous avons opéré une <strong>rupture avec l'administration système traditionnelle</strong>. Au lieu de configurer manuellement un serveur, nous avons traité l'infrastructure comme du code (IaC).</p>
+                <p><strong>Pourquoi ?</strong> Pour garantir la reproductibilité totale. Que le serveur soit un VPS Debian 12 ou un cluster AWS, le déploiement reste identique. Nous avons transformé le serveur en une "ressource liquide", supprimant toute dépendance au matériel physique.</p>
+            </div>
+            <div class="col-md-4 bg-light p-3 rounded border text-center">
+                <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-2"></i>
+                <p class="small mb-0">"Ne configurez pas de serveurs, codez des plateformes."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="h3 border-start border-4 border-primary ps-3 mb-4 text-primary">II. Topologie Réseau : Segmentation et DMZ Logicielle</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h5>2.1 Gateway & Terminaison SSL (Nginx)</h5>
+                <p>Nous avons implémenté un <strong>Reverse Proxy Nginx</strong> agissant comme "Gatekeeper". Il gère l'accueil des flux, la terminaison SSL (HTTPS) et protège l'application de toute exposition directe. C'est le bouclier périmétrique indispensable pour les grands groupes.</p>
+            </div>
+            <div class="col-md-6 border-start">
+                <h5>2.2 Isolation Intra-Conteneur (Docker Bridge)</h5>
+                <p>L'application réside dans un réseau privé virtuel <code>proxy-network</code>. Le backend est <strong>invisible</strong> depuis le Web public. Seul Nginx a l'autorisation de router le trafic vers l'application, créant une véritable zone démilitarisée (DMZ) logicielle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-5 bg-light p-4 rounded border-warning border-start border-5">
+        <h2 class="h3 text-dark mb-4"><i class="fas fa-microchip me-2"></i> III. Maîtrise du Cycle de Vie : Standardisation des Runtimes</h2>
+        <p><strong>Contrainte technique rencontrée :</strong> Un conflit de versions Java entre l'environnement de build (JDK 21) et le serveur (JRE 17) provoquait une erreur fatale de version de bytecode.</p>
+        <p><strong>Solution d'expert : Le Multi-Stage Build.</strong></p>
+        <p>Nous avons conçu un Dockerfile en deux étapes : 
+            <ol>
+                <li><strong>Phase Build :</strong> Utilisation d'une image lourde (Maven/JDK) pour compiler proprement le code.</li>
+                <li><strong>Phase Runtime :</strong> Extraction du binaire vers une image ultra-légère (JRE Alpine) pour l'exécution.</li>
+            </ol>
+            <em>Résultat :</em> Sécurité renforcée (pas d'outils de compilation en production) et image 80% plus légère.
+        </p>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="h3 border-start border-4 border-primary ps-3 mb-4 text-primary">IV. Usine Logicielle Industrielle : Automatisation et Qualité</h2>
         <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <h4 class="card-title text-primary"><i class="fab fa-linux"></i> Administration Système Linux</h4>
-                        <p class="card-text">Gestion avancée d'un environnement <strong>Debian</strong> durci, optimisé pour la production.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-check-circle text-success"></i> Hardening SSH et gestion des privilèges.</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Analyse de logs temps réel (Journalctl, Docker logs).</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Automatisation via Shell Scripting (Bash).</li>
-                        </ul>
-                    </div>
+            <div class="col-md-4 text-center">
+                <div class="p-3 border rounded">
+                    <i class="fab fa-jenkins fa-2x text-primary mb-2"></i>
+                    <h6>Jenkins Pipeline</h6>
+                    <p class="small text-muted">Orchestration complète "Pipeline-as-Code" sans intervention manuelle.</p>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <h4 class="card-title text-primary"><i class="fab fa-docker"></i> Orchestration & Conteneurisation</h4>
-                        <p class="card-text">Implémentation d'une architecture <strong>Stateless</strong> immuable.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-check-circle text-success"></i> Docker Multi-stage Build (Séparation Build/Runtime).</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Isolation réseau via Docker Private Bridges.</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Optimisation des images (Alpine Linux) pour la sécurité.</li>
-                        </ul>
-                    </div>
+            <div class="col-md-4 text-center">
+                <div class="p-3 border rounded">
+                    <i class="fas fa-search-dollar fa-2x text-primary mb-2"></i>
+                    <h6>SonarQube SAST</h6>
+                    <p class="small text-muted">Audit de sécurité statique pour garantir un code sans failles critiques.</p>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <h4 class="card-title text-primary"><i class="fas fa-shield-alt"></i> Networking & Sécurité</h4>
-                        <p class="card-text">Routage sécurisé et protection périmétrique.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-check-circle text-success"></i> Reverse Proxy <strong>Nginx</strong> avec terminaison TLS/SSL.</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Gestion dynamique DNS (DuckDNS) & Certbot.</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Segmentation des flux (DMZ logicielle).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <h4 class="card-title text-primary"><i class="fas fa-infinity"></i> Pipeline CI/CD Industrielle</h4>
-                        <p class="card-text">Automatisation totale du cycle de vie applicatif.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-check-circle text-success"></i> Orchestration <strong>Jenkins</strong> (Pipeline as Code).</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Audit de code statique avec <strong>SonarQube</strong>.</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Déploiement continu (CD) sans action manuelle.</li>
-                        </ul>
-                    </div>
+            <div class="col-md-4 text-center">
+                <div class="p-3 border rounded">
+                    <i class="fab fa-docker fa-2x text-primary mb-2"></i>
+                    <h6>Docker Registry</h6>
+                    <p class="small text-muted">Versionnement des artéfacts pour une traçabilité totale des déploiements.</p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="mt-5 p-4 bg-white rounded shadow-sm">
-            <h5>🔍 Vision de l'Ingénieur : Pourquoi cette architecture ?</h5>
-            <p>
-                Ce projet démontre la capacité à transformer un serveur brut en une plateforme de services hautement disponible. 
-                Grâce au <strong>Multi-stage build</strong>, nous avons résolu les conflits de runtimes Java (JDK 17/21) en isolant 
-                l'environnement de compilation de celui de production. L'utilisation de <strong>Nginx</strong> comme passerelle 
-                garantit que l'application reste protégée dans un réseau privé, simulant une infrastructure Cloud de grade industriel.
-            </p>
-        </div>
-    </div>
-</section>
+    <section class="mb-5">
+        <h2 class="h3 border-start border-4 border-primary ps-3 mb-4 text-primary">V. Exploitation et Résilience (Self-Healing)</h2>
+        <p>L'infrastructure intègre une logique de <strong>Self-Healing (Auto-cicatrisation)</strong>. En utilisant les politiques de redémarrage de Docker (<code>--restart always</code>) et une centralisation des logs via le moteur Linux Debian, le système est capable de détecter une panne et de relancer le service en millisecondes.</p>
+    </section>
+
+    <footer class="text-center pt-4 border-top">
+        <p class="text-muted italic">"Cette architecture prouve qu'un environnement complexe peut devenir fiable et simple grâce à l'automatisation rigoureuse."</p>
+    </footer>
+
+</div>
