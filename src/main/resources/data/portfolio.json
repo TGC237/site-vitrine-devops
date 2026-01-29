@@ -1,0 +1,39 @@
+{
+  "identite": {
+    "nom": "TON_NOM",
+    "prenom": "TON_PRENOM",
+    "age": "2X",
+    "origine": "Cameroun",
+    "taille": "1mXX",
+    "titre": "Ingénieur DevSecOps / Cloud & Infra",
+    "ecole": "NOM_DE_TON_ECOLE",
+    "qualites": [
+      "Pragmatisme",
+      "Autodidacte",
+      "Rigueur Industrielle"
+    ]
+  },
+  "a_propos": "Passionné par l'industrialisation des processus, je conçois des architectures résilientes et sécurisées pour répondre aux enjeux de haute disponibilité.",
+  "experiences": [
+    {
+      "entreprise": "Safran (Simulation)",
+      "logo": "/images/safran.png",
+      "secteur": "Aéronautique",
+      "poste": "Ingénieur Stagiaire DevSecOps",
+      "date": "2024 - Présent",
+      "lieu": "France",
+      "realisations": [
+        "Automatisation des builds via Jenkins",
+        "Audit de sécurité SonarQube"
+      ]
+    }
+  ],
+  "competences": [
+    "Docker",
+    "Kubernetes",
+    "Jenkins",
+    "Linux Debian",
+    "n8n",
+    "Spring Boot"
+  ]
+}
