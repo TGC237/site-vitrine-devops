@@ -12,10 +12,13 @@ pipeline {
             }
         }
         stage('Deploy Backup (Port 8081)') {
-            steps {
-                // On utilise docker-compose car tu as déjà configuré le port 8081 dedans
-                sh "docker-compose up -d"
-            }
-        }
+ 	   steps {
+        	echo "Nettoyage de l'ancien container de secours..."
+        	sh "docker rm -f site-copilot-backup || true"
+        
+      	  	echo "Lancement de la version Copilot sur le port 8081..."
+        	sh "docker run -d --name site-copilot-backup -p 8081:80 vitrine-backup:latest"
+    	    }
+	}
     }
 }
