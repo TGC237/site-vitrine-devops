@@ -20,6 +20,8 @@ pipeline {
                 echo "Lancement de la version Copilot sur le port 8082..."
                 // Utilisation du port 8082 pour éviter le conflit avec Nexus sur le 8081
                 sh "docker run -d --name site-copilot-backup -p 8082:80 vitrine-backup:latest"
+		// AJOUTE CETTE LIGNE ICI :
+                sh "docker network connect proxy-network site-copilot-backup || true"
             }
         }
     }
