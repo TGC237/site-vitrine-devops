@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Cleanup') {
             steps {
-                // On tente de nettoyer via compose au cas où, mais on ne bloque pas si ça échoue
-                sh "docker-compose down || true"
+                sh "docker rm -f site-copilot-backup || true"
             }
         }
         stage('Docker Build Local') {
@@ -12,15 +11,13 @@ pipeline {
                 sh "docker build -t vitrine-backup:latest ."
             }
         }
-        stage('Deploy Backup (Port 8082)') {
+        stage('Deploy Backup (Secure)') {
             steps {
-                echo "Nettoyage de l'ancien container de secours..."
-                sh "docker rm -f site-copilot-backup || true"
-
-                echo "Lancement de la version Copilot sur le port 8082..."
-                // Utilisation du port 8082 pour éviter le conflit avec Nexus sur le 8081
-                sh "docker run -d --name site-copilot-backup -p 8082:80 vitrine-backup:latest"
-		// AJOUTE CETTE LIGNE ICI :
+                echo "Lancement sécurisé sur 127.0.0.1:8082..."
+                // On ajoute 127.0.0.1: devant le port pour l'isoler
+                sh "docker run -d --name site-copilot-backup -p 127.0.0.1:8082:80 vitrine-backup:latest"
+                
+                echo "Connexion au réseau proxy-network..."
                 sh "docker network connect proxy-network site-copilot-backup || true"
             }
         }
