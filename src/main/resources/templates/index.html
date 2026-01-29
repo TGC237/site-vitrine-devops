@@ -1,49 +1,96 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>TGC | PORTAIL EXPERT SI</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGC-SITE | Mission Control</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <div th:replace="~{fragments/navbar :: header-nav}"></div>
+<body class="p-4 md:p-8">
 
-    <section class="hero">
-        <h1 class="cyber-title">USINE LOGICIELLE TGC ACTIVÉE</h1>
-        <div class="status-badge">
-            <span class="dot-pulse"></span> SYSTÈME : OPÉRATIONNEL
-        </div>
-        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
-            Bienvenue sur le centre de commandement. Cette plateforme démontre la maîtrise complète du cycle de vie DevOps, de l'infrastructure à l'Intelligence Opérationnelle.
-        </p>
-    </section>
-
-    <div class="grid-container">
+    <div class="max-w-7xl mx-auto space-y-8">
         
-        <a th:href="@{/expertise/infrastructure}" class="expert-card">
-            <div class="metier-tag">Cloud & Network</div>
-            <h3>🚀 Infrastructure</h3>
-            <p>Isolation Docker, Reverse Proxy SSL et orchestration de services critiques.</p>
-        </a>
+        <nav class="glass p-6 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-blue-500/20">TGC</div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight">MISSION CONTROL</h1>
+                    <p class="text-[10px] text-blue-400 font-mono tracking-widest uppercase">Operator: DevSecOps Engineer</p>
+                </div>
+            </div>
+            <div class="flex gap-6 text-sm font-medium text-slate-400">
+                <a href="#dashboard" class="nav-link">DASHBOARD</a>
+                <a href="#profil" class="nav-link">PROFIL</a>
+                <a href="#experiences" class="nav-link">EXPERIENCES</a>
+                <a href="#projets" class="nav-link">PROJECTS</a>
+            </div>
+            <div class="flex gap-4">
+                <i data-lucide="github" class="w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
+                <i data-lucide="linkedin" class="w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
+            </div>
+        </nav>
 
-        <a th:href="@{/expertise/security}" class="expert-card">
-            <div class="metier-tag">Security Engineer</div>
-            <h3>🛡️ Sécurité & Audit</h3>
-            <p>Analyse SonarQube et durcissement des pipelines CI/CD.</p>
-        </a>
+        <section id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass p-6 flex flex-col justify-between group">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-mono text-slate-500 uppercase">CI/CD Pipeline</span>
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-blue-400 animate-spin"></i>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-2xl font-bold italic">Jenkins Build</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full status-glow"></div>
+                        <span class="text-green-400 font-mono text-sm">#42 - STABLE</span>
+                    </div>
+                </div>
+                <p class="text-[10px] text-slate-500 mt-4">Last update: Live from n8n</p>
+            </div>
 
-        <a th:href="@{/expertise/aiops}" class="expert-card" style="border-color: var(--secondary);">
-            <div class="metier-tag">AI Specialist</div>
-            <h3>🤖 Intelligence Artificielle</h3>
-            <p>Maintenance prédictive, LLM Ops et automatisation intelligente du SI.</p>
-        </a>
+            <div class="glass p-6 md:col-span-2 relative overflow-hidden">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-mono text-slate-500 uppercase">Infrastructure Monitoring</span>
+                    <span class="text-xs bg-slate-800 px-2 py-1 rounded text-blue-300 border border-blue-500/20">Debian 12 Live</span>
+                </div>
+                <div class="h-24 flex items-end gap-1 opacity-60">
+                    <div class="flex-1 bg-blue-500/30 h-1/2 rounded-t"></div>
+                    <div class="flex-1 bg-blue-500/40 h-3/4 rounded-t"></div>
+                    <div class="flex-1 bg-blue-500/20 h-full rounded-t"></div>
+                </div>
+            </div>
+        </section>
 
-        <a th:href="@{/expertise/observability}" class="expert-card">
-            <div class="metier-tag">SRE</div>
-            <h3>📊 Observabilité</h3>
-            <p>Supervision Prometheus/Grafana et alerting temps réel via Telegram.</p>
-        </a>
+        <section id="profil" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="glass p-8 md:col-span-1 flex flex-col items-center text-center">
+                <div class="w-24 h-24 bg-gradient-to-tr from-blue-600 to-emerald-400 rounded-3xl mb-4 rotate-3 shadow-xl"></div>
+                <h2 class="text-xl font-bold">Ton Nom</h2>
+                <p class="text-blue-400 text-sm mb-4">Ingénieur DevSecOps</p>
+                <div class="space-y-3 text-xs text-slate-400 border-t border-white/5 pt-6 w-full text-left font-mono">
+                    <p class="flex justify-between"><span>ORIGINE:</span> <span class="text-white uppercase">France</span></p>
+                    <p class="flex justify-between"><span>DIPLÔME:</span> <span class="text-white uppercase">Master IT</span></p>
+                </div>
+            </div>
+            <div class="glass p-8 md:col-span-3">
+                <h3 class="text-xs font-mono text-blue-500 mb-2 uppercase tracking-widest font-bold">// À propos</h3>
+                <p class="text-lg leading-relaxed text-slate-300 font-light">
+                    Expertise dans la création de ponts entre le développement et l'exploitation. Focalisé sur l'automatisation, la sécurité réseau et la haute disponibilité.
+                </p>
+                <div class="flex flex-wrap gap-3 mt-8">
+                    <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-tighter">Pragmatisme</span>
+                    <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-tighter">Curiosité technique</span>
+                </div>
+            </div>
+        </section>
 
     </div>
+
+    <script>
+        // Initialisation des icônes Lucide
+        lucide.createIcons();
+    </script>
 </body>
 </html>
