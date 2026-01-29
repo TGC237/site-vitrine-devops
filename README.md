@@ -93,7 +93,6 @@ Ce projet est sous licence MIT. Il a pour objectif de démontrer qu'une infrastr
 3.  **Lien Live :** Si ton site est hébergé, ajoute un lien vers la démo en direct au tout début.
 
 ### 🏁 Prochaine étape
-Veux-tu que je t'aide à créer un fichier `CONTRIBUTING.md` ou `SECURITY.md` pour montrer aux recruteurs que tu maîtrises aussi la gouvernance open-source ?
 
 Cette vidéo explique en détail comment structurer un pipeline CI/CD moderne avec Jenkins, Docker et SonarQube, ce qui appuie parfaitement la partie technique de ton README. [Guide complet Jenkins Docker SonarQube](https://www.youtube.com/watch?v=cy90OTK4-Q0)
 
