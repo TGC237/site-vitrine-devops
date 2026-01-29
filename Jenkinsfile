@@ -34,7 +34,7 @@ pipeline {
                     sh "docker tag ${IMAGE_NAME}:latest ${NEXUS_REGISTRY}/${NEXUS_REPO}${IMAGE_NAME}:latest"
                     
                     // Connexion et Push (utilise tes credentials Jenkins pour Nexus)
-                    withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PWD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'nexus-admin', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PWD')]) {
                         sh "echo ${NEXUS_PWD} | docker login ${NEXUS_REGISTRY} -u ${NEXUS_USER} --password-stdin"
                         sh "docker push ${NEXUS_REGISTRY}/${NEXUS_REPO}${IMAGE_NAME}:latest"
                     }
