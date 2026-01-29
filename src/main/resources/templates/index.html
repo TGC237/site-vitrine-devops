@@ -99,46 +99,59 @@
 
     </div>
 
-    <script>
-        // Initialisation des icônes Lucide
-        lucide.createIcons();
-    </script>
-<script>
-    async function updateMissionControl() {
-        try {
-            // On récupère le fichier JSON généré par n8n
-            // Le chemin /data/ est celui configuré dans ton projet Spring Boot
-            const response = await fetch('/data/mission_control.json');
-            if (!response.ok) throw new Error('Fichier data non trouvé');
-            
-            const data = await response.json();
+   <script>
+  	 async function updateMissionControl() {
+	    try {
+	        const response = await fetch('/data/mission_control.json');
+	        if (!response.ok) throw new Error('Fichier introuvable');
 
-            // 1. Mise à jour Jenkins
-            const jenkinsText = document.getElementById('jenkins-info');
-            jenkinsText.innerText = `#${data.jenkins.total_jobs} - ${data.jenkins.build_status}`;
-            
-            // 2. Mise à jour Infrastructure
-            document.getElementById('ram-usage').innerText = `${data.infra.ram_available_gb} GB`;
-            
-            // 3. Mise à jour Sonar Status
-            const sonar = document.getElementById('sonar-badge');
-            sonar.innerText = `SONAR: ${data.security.sonar_status}`;
-            
-            // 4. Update Time (La preuve que c'est du direct)
-            document.getElementById('last-update').innerText = `Last update: ${data.meta.last_update} (Live via n8n)`;
+	        const rawData = await response.json();
+	        // On s'assure d'avoir l'objet, qu'il soit dans un tableau ou non
+	        const data = Array.isArray(rawData) ? rawData[0] : rawData;
 
-        } catch (error) {
-            console.error('Erreur Mission Control:', error);
-            document.getElementById('last-update').innerText = "Sync Error - Check n8n Workflow";
+	        console.log("Données reçues :", data); // Pour debug dans la console F12
+
+	        // 1. Jenkins (avec protection si undefined)
+	        if (data.jenkins) {
+	            const jenkinsText = document.getElementById('jenkins-info');
+	            if (jenkinsText) jenkinsText.innerText = `#${data.jenkins.total_jobs || 0} - ${data.jenkins.build_status || 'N/A'}`;
+	        }
+
+	        // 2. Infrastructure
+	        if (data.infra) {
+	            const ramElement = document.getElementById('ram-usage');
+	            if (ramElement) ramElement.innerText = `${data.infra.ram_available_gb || '0'} GB`;
+	        }
+
+	        // 3. Sonar
+	        if (data.security) {
+	            const sonar = document.getElementById('sonar-badge');
+	            if (sonar) {
+	                sonar.innerText = `SONAR: ${data.security.sonar_status || 'UNKNOWN'}`;
+	                sonar.style.color = data.security.sonar_status === 'PASSED' ? '#2ecc71' : '#e74c3c';
+	            }
+	        }
+
+	        // 4. Update Time (Utilise la date de sonar si meta est absent)
+        const lastUpdate = document.getElementById('last-update');
+        if (lastUpdate) {
+            const time = (data.meta && data.meta.last_update) ? data.meta.last_update : (data.security ? data.security.last_scan : 'Just now');
+            lastUpdate.innerText = `Last update: ${time}`;
         }
-    }
 
-    // Exécution initiale et rafraîchissement toutes les 30 secondes
-    updateMissionControl();
-    setInterval(updateMissionControl, 30000);
+	    } catch (error) {
+	        console.error('Erreur Mission Control:', error);
+	        const errorElement = document.getElementById('last-update');
+	        if (errorElement) errorElement.innerText = "Sync Error - Retrying...";
+	    }
+	}	
+	    // Initialisation des icônes Lucide
+	    //exécution initiale et rafraîchissement toutes les 30 secondes
+	    updateMissionControl();
+	    setInterval(updateMissionControl, 30000);
 
-    // Initialisation des icônes Lucide
-    lucide.createIcons();
-</script>
+	    // Initialisation des icônes Lucide
+	    lucide.createIcons();
+	</script>
 </body>
 </html>
