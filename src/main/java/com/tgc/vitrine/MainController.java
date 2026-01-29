@@ -24,10 +24,11 @@ public class MainController {
             // 3. Envoyer l'objet à la vue index.html
             model.addAttribute("portfolio", data);
             
-        } catch (IOException e) {
-            model.addAttribute("error", "Erreur de chargement des données de mission.");
-            System.err.println("Erreur : Impossible de lire portfolio.json");
-        }
+           } catch (Exception e) {
+ 	   e.printStackTrace(); // Cela affichera l'erreur précise dans ton terminal/console
+   	   model.addAttribute("error", e.getMessage());
+   	   return "error"; 
+	   }
         
         return "index";
     }

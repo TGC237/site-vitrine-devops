@@ -11,4 +11,6 @@ public class PortfolioData {
     public List<Map<String, Object>> experiences;
     public List<String> competences;
     // Getters et Setters seront générés automatiquement par Spring/Jackson
+    //constructeur vide requis par jackson
+    public PortfolioData() {}
 }
