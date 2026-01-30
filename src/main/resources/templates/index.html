@@ -103,12 +103,12 @@
 
                 // 1. Gestion des SITES (UP/DOWN)
                 const siteBadge = document.getElementById('site-status-badge');
-                if (siteBadge && data.site_status) {
-                    siteBadge.innerText = `SITES: ${data.site_status}`;
+                if (siteBadge && data.siteStatus) {
+                    siteBadge.innerText = `SITES: ${data.siteStatus}`;
                     
-                    if (data.site_status === 'ALL ONLINE') {
+                    if (data.siteStatus === 'ALL ONLINE') {
                         siteBadge.className = "text-[10px] px-2 py-1 rounded border font-bold bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                    } else if (data.site_status === 'SSL WARN') {
+                    } else if (data.siteStatus === 'SSL WARN') {
                         siteBadge.className = "text-[10px] px-2 py-1 rounded border font-bold bg-amber-500/10 text-amber-400 border-amber-500/20";
                     } else {
                         siteBadge.className = "text-[10px] px-2 py-1 rounded border font-bold bg-red-500/10 text-red-400 border-red-500/20";
@@ -117,15 +117,15 @@
 
                 // 2. Gestion du SSL
                 const sslDiv = document.getElementById('ssl-status');
-                if (data.site_status === 'SSL WARN') {
+                if (data.siteStatus === 'SSL WARN') {
                     sslDiv.innerHTML = '<i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i><span class="text-amber-500 font-bold uppercase">EXPIRING SOON</span>';
                 } else {
                     sslDiv.innerHTML = '<i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i><span class="text-emerald-500 font-bold uppercase">SECURE</span>';
                 }
 
                 // 3. Jenkins & RAM
-                document.getElementById('jenkins-info').innerText = `#${data.build_no || 0} - ${data.jenkins_status || 'STABLE'}`;
-                document.getElementById('ram-usage').innerText = `${data.ram || '0'} GB`;
+                document.getElementById('jenkins-info').innerText = `#${data.jenkinsBuildNumber || 0} - ${data.jenkinsStatus || 'STABLE'}`;
+                document.getElementById('ram-usage').innerText = `${data.ramUsageGb || '0'} GB`;
 
                 // 4. Latence (Simulée ou via DB si tu l'ajoutes)
                 // Note: Ici on peut mettre une valeur fixe ou la récupérer si tu modifies ta table
@@ -133,7 +133,7 @@
 
                 // 5. Sonar & Date
                 const sonar = document.getElementById('sonar-badge');
-                sonar.innerText = `SONAR: ${data.sonar || 'PASSED'}`;
+                sonar.innerText = `SONAR: ${data.sonarStatus || 'PASSED'}`;
                 document.getElementById('last-update').innerText = `Last heartbeat: ${new Date().toLocaleTimeString()}`;
 
                 lucide.createIcons();
