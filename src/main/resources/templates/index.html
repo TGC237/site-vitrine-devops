@@ -78,8 +78,8 @@
         <section id="profil" class="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div class="glass p-8 md:col-span-1 flex flex-col items-center text-center">
                 <div class="w-24 h-24 bg-gradient-to-tr from-blue-600 to-emerald-400 rounded-3xl mb-4 rotate-3 shadow-xl"></div>
-                <h2 class="text-xl font-bold" th:text="${portfolio.identite.prenom + ' ' + portfolio.identite.nom}">
-                <p class="text-blue-400 text-sm mb-4">Ingénieur DevSecOps</p>
+                <h2 class="text-xl font-bold" th:text="${profil.prenom + ' ' + profil.nom}">Giresse Cédric TONLEU</h2>
+                <p class="text-blue-400 text-sm mb-4" th:text="${profil.titre}">Ingénieur DevSecOps</p>
                 <div class="space-y-3 text-xs text-slate-400 border-t border-white/5 pt-6 w-full text-left font-mono">
                     <p class="flex justify-between"><span>ORIGINE:</span> <span class="text-white uppercase">France</span></p>
                     <p class="flex justify-between"><span>DIPLÔME:</span> <span class="text-white uppercase">Master IT</span></p>
@@ -87,9 +87,7 @@
             </div>
             <div class="glass p-8 md:col-span-3">
                 <h3 class="text-xs font-mono text-blue-500 mb-2 uppercase tracking-widest font-bold">// À propos</h3>
-                <p class="text-lg leading-relaxed text-slate-300 font-light">
-                    Expertise dans la création de ponts entre le développement et l'exploitation. Focalisé sur l'automatisation, la sécurité réseau et la haute disponibilité.
-                </p>
+                <p class="text-lg leading-relaxed text-slate-300 font-light" th:text="${profil.bio}">Ma bio depuis Postgres...</p>
                 <div class="flex flex-wrap gap-3 mt-8">
                     <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-tighter">Pragmatisme</span>
                     <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-tighter">Curiosité technique</span>
