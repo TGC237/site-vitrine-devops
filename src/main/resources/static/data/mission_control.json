@@ -1,1 +1,0 @@
-[{"infra":{"ram_available_gb":"1.17","cpu_usage_pct":"Calcul en cours...","status":"ONLINE"},"jenkins":{"total_jobs":3,"build_status":"STABLE"},"security":{"sonar_status":"PASSED","last_scan":"30/01/2026 13:55:46"}}]
