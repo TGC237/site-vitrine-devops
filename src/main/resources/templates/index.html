@@ -75,14 +75,14 @@
 	    </div>
 	</section>
 
-        <section id="profil" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <section id="profil" th:if="${profil != null}" class="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div class="glass p-8 md:col-span-1 flex flex-col items-center text-center">
                 <div class="w-24 h-24 bg-gradient-to-tr from-blue-600 to-emerald-400 rounded-3xl mb-4 rotate-3 shadow-xl"></div>
                 <h2 class="text-xl font-bold" th:text="${profil.prenom + ' ' + profil.nom}">Giresse Cédric TONLEU</h2>
                 <p class="text-blue-400 text-sm mb-4" th:text="${profil.titre}">Ingénieur DevSecOps</p>
                 <div class="space-y-3 text-xs text-slate-400 border-t border-white/5 pt-6 w-full text-left font-mono">
-                    <p class="flex justify-between"><span>ORIGINE:</span> <span class="text-white uppercase">France</span></p>
-                    <p class="flex justify-between"><span>DIPLÔME:</span> <span class="text-white uppercase">Master IT</span></p>
+                    <p class="flex justify-between"><span>ORIGINE:</span> <span class="text-white uppercase" th:text="${profil.origine}">France</span></p>
+		    <p class="flex justify-between"><span>DIPLÔME:</span> <span class="text-white uppercase" th:text="${profil.diplome}">Master IT</span></p>
                 </div>
             </div>
             <div class="glass p-8 md:col-span-3">
@@ -98,49 +98,46 @@
     </div>
 
    <script>
-  	 async function updateMissionControl() {
+	async function updateMissionControl() {
 	    try {
+	        // On interroge ton API Spring Boot qui lit maintenant la DB
 	        const response = await fetch('/data/mission_control.json?t=' + Date.now());
-	        if (!response.ok) throw new Error('Fichier introuvable');
+	        if (!response.ok) throw new Error('Données DB indisponibles');
 
-	        const rawData = await response.json();
-	        // On s'assure d'avoir l'objet, qu'il soit dans un tableau ou non
-	        const data = Array.isArray(rawData) ? rawData[0] : rawData;
+	        const data = await response.json();
+	        console.log("Données reçues de la DB :", data);
 
-	        console.log("Données reçues :", data); // Pour debug dans la console F12
-
-	        // 1. Jenkins (avec protection si undefined)
-	        if (data.jenkins) {
+	        if (data) {
+	            // 1. Jenkins : On utilise les noms de ton Entité Dashboard.java
 	            const jenkinsText = document.getElementById('jenkins-info');
-	            if (jenkinsText) jenkinsText.innerText = `#${data.jenkins.total_jobs || 0} - ${data.jenkins.build_status || 'N/A'}`;
-	        }
+	            if (jenkinsText) {
+	                // Note : Spring convertit souvent jenkinsBuildNumber en JSON
+	                jenkinsText.innerText = `#${data.jenkinsBuildNumber || '--'} - ${data.jenkinsStatus || 'N/A'}`;
+	            }
 
-	        // 2. Infrastructure
-	        if (data.infra) {
+	            // 2. RAM : ramUsageGb vient de ton Entité Java
 	            const ramElement = document.getElementById('ram-usage');
-	            if (ramElement) ramElement.innerText = `${data.infra.ram_available_gb || '0'} GB`;
-	        }
+	            if (ramElement) {
+	                ramElement.innerText = `${data.ramUsageGb || '0'} GB`;
+	            }
 
-	        // 3. Sonar
-	        if (data.security) {
+	            // 3. Sonar : sonarStatus vient de ton Entité Java
 	            const sonar = document.getElementById('sonar-badge');
 	            if (sonar) {
-	                sonar.innerText = `SONAR: ${data.security.sonar_status || 'UNKNOWN'}`;
-	                sonar.style.color = data.security.sonar_status === 'PASSED' ? '#2ecc71' : '#e74c3c';
+	                sonar.innerText = `SONAR: ${data.sonarStatus || 'UNKNOWN'}`;
+	                sonar.style.color = data.sonarStatus === 'PASSED' ? '#2ecc71' : '#e74c3c';
+	            }
+
+	            // 4. Update Time
+	            const lastUpdate = document.getElementById('last-update');
+	            if (lastUpdate) {
+	                lastUpdate.innerText = `Last update: ${data.lastUpdate || 'Just now'}`;
 	            }
 	        }
-
-	        // 4. Update Time (Utilise la date de sonar si meta est absent)
-        const lastUpdate = document.getElementById('last-update');
-        if (lastUpdate) {
-            const time = (data.meta && data.meta.last_update) ? data.meta.last_update : (data.security ? data.security.last_scan : 'Just now');
-            lastUpdate.innerText = `Last update: ${time}`;
-        }
-
 	    } catch (error) {
-	        console.error('Erreur Mission Control:', error);
+	        console.error('Erreur Sync Base de données:', error);
 	        const errorElement = document.getElementById('last-update');
-	        if (errorElement) errorElement.innerText = "Sync Error - Retrying...";
+	        if (errorElement) errorElement.innerText = "DB Connection Error - Retrying...";
 	    }
 	}	
 	    // Initialisation des icônes Lucide
@@ -150,6 +147,6 @@
 
 	    // Initialisation des icônes Lucide
 	    lucide.createIcons();
-	</script>
+</script>
 </body>
 </html>
