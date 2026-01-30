@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TGC-SITE | Mission Control</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="p-4 md:p-8">
-
     <div class="max-w-7xl mx-auto space-y-8">
-        
         <nav class="glass p-6 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-blue-500/20">TGC</div>
@@ -29,124 +25,87 @@
                 <a href="#experiences" class="nav-link">EXPERIENCES</a>
                 <a href="#projets" class="nav-link">PROJECTS</a>
             </div>
-            <div class="flex gap-4">
-                <i data-lucide="github" class="w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
-                <i data-lucide="linkedin" class="w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
-            </div>
         </nav>
 
         <section id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-	    <div class="glass p-6 flex flex-col justify-between group">
-	        <div class="flex justify-between items-start">
-	            <span class="text-xs font-mono text-slate-500 uppercase">CI/CD Pipeline</span>
-	            <i data-lucide="refresh-cw" class="w-4 h-4 text-blue-400 animate-spin"></i>
-	        </div>
-	        <div class="mt-4">
-	            <h3 class="text-2xl font-bold italic">Jenkins Build</h3>
-	            <div class="flex items-center gap-2 mt-2">
-	                <div id="jenkins-status-dot" class="w-3 h-3 bg-green-500 rounded-full status-glow"></div>
-	                <span id="jenkins-info" class="text-green-400 font-mono text-sm">#-- - LOADING</span>
-	            </div>
-	        </div>
-	        <p id="last-update" class="text-[10px] text-slate-500 mt-4 italic">Waiting for n8n heartbeat...</p>
-	    </div>
-
-	    <div class="glass p-6 md:col-span-2 relative overflow-hidden">
-	        <div class="flex justify-between items-start mb-4">
-	            <span class="text-xs font-mono text-slate-500 uppercase">Infrastructure Monitoring</span>
-	            <div class="flex gap-2">
-	                <span id="sonar-badge" class="text-[10px] bg-emerald-500/10 px-2 py-1 rounded text-emerald-400 border border-emerald-500/20 font-bold">SONAR: OK</span>
-	                <span class="text-xs bg-slate-800 px-2 py-1 rounded text-blue-300 border border-blue-500/20">Debian 12 Live</span>
-	            </div>
-		        </div>
-	        
-	        <div class="flex items-center gap-8 h-24">
-	            <div>
-	                <p class="text-xs text-slate-500 font-mono uppercase">RAM Available</p>
-	                <p id="ram-usage" class="text-3xl font-black text-white">-- GB</p>
-	            </div>
-	            <div class="flex-1 h-12 flex items-end gap-1 opacity-60">
-	                <div class="flex-1 bg-blue-500/30 h-1/2 rounded-t"></div>
-	                <div class="flex-1 bg-blue-500/40 h-3/4 rounded-t"></div>
-	                <div class="flex-1 bg-blue-500/20 h-full rounded-t"></div>
-	                <div class="flex-1 bg-blue-500/50 h-2/3 rounded-t"></div>
-	            </div>
-	        </div>
-	    </div>
-	</section>
-
-        <section id="profil" th:if="${profil != null}" class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="glass p-8 md:col-span-1 flex flex-col items-center text-center">
-                <div class="w-24 h-24 bg-gradient-to-tr from-blue-600 to-emerald-400 rounded-3xl mb-4 rotate-3 shadow-xl"></div>
-                <h2 class="text-xl font-bold" th:text="${profil.prenom + ' ' + profil.nom}">Giresse Cédric TONLEU</h2>
-                <p class="text-blue-400 text-sm mb-4" th:text="${profil.titre}">Ingénieur DevSecOps</p>
-                <div class="space-y-3 text-xs text-slate-400 border-t border-white/5 pt-6 w-full text-left font-mono">
-                    <p class="flex justify-between"><span>ORIGINE:</span> <span class="text-white uppercase" th:text="${profil.origine}">France</span></p>
-		    <p class="flex justify-between"><span>DIPLÔME:</span> <span class="text-white uppercase" th:text="${profil.diplome}">Master IT</span></p>
+            <div class="glass p-6 flex flex-col justify-between group">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-mono text-slate-500 uppercase">CI/CD Pipeline</span>
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-blue-400 animate-spin"></i>
                 </div>
+                <div class="mt-4">
+                    <h3 class="text-2xl font-bold italic">Jenkins Build</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <div id="jenkins-status-dot" class="w-3 h-3 bg-green-500 rounded-full status-glow"></div>
+                        <span id="jenkins-info" class="text-green-400 font-mono text-sm">LOADING...</span>
+                    </div>
+                </div>
+                <p id="last-update" class="text-[10px] text-slate-500 mt-4 italic">Waiting for heartbeat...</p>
             </div>
-            <div class="glass p-8 md:col-span-3">
-                <h3 class="text-xs font-mono text-blue-500 mb-2 uppercase tracking-widest font-bold">// À propos</h3>
-                <p class="text-lg leading-relaxed text-slate-300 font-light" th:text="${profil.bio}">Ma bio depuis Postgres...</p>
-                <div class="flex flex-wrap gap-3 mt-8">
-                    <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-tighter">Pragmatisme</span>
-                    <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-tighter">Curiosité technique</span>
+
+            <div class="glass p-6 md:col-span-2 relative overflow-hidden">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-xs font-mono text-slate-500 uppercase">Infrastructure Monitoring</span>
+                    <div class="flex gap-2">
+                        <span id="sonar-badge" class="text-[10px] bg-emerald-500/10 px-2 py-1 rounded text-emerald-400 border border-emerald-500/20 font-bold">SONAR: --</span>
+                        <span class="text-xs bg-slate-800 px-2 py-1 rounded text-blue-300 border border-blue-500/20">Debian 12 Live</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-8 h-24">
+                    <div>
+                        <p class="text-xs text-slate-500 font-mono uppercase">RAM Available</p>
+                        <p id="ram-usage" class="text-3xl font-black text-white">-- GB</p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <section id="profil" th:if="${profil != null}" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="glass p-8 md:col-span-1 flex flex-col items-center text-center">
+                <div class="w-24 h-24 bg-gradient-to-tr from-blue-600 to-emerald-400 rounded-3xl mb-4 rotate-3 shadow-xl"></div>
+                <h2 class="text-xl font-bold" th:text="${profil.prenom + ' ' + profil.nom}">Giresse Cédric</h2>
+                <p class="text-blue-400 text-sm mb-4" th:text="${profil.titre}">Ingénieur DevSecOps</p>
+                <div class="space-y-3 text-xs text-slate-400 border-t border-white/5 pt-6 w-full text-left font-mono">
+                    <p class="flex justify-between"><span>ORIGINE:</span> <span class="text-white uppercase" th:text="${profil.origine}">France</span></p>
+                    <p class="flex justify-between"><span>DIPLÔME:</span> <span class="text-white uppercase" th:text="${profil.diplome}">Master</span></p>
+                </div>
+            </div>
+            <div class="glass p-8 md:col-span-3">
+                <h3 class="text-xs font-mono text-blue-500 mb-2 uppercase tracking-widest font-bold">// À propos</h3>
+                <p class="text-lg leading-relaxed text-slate-300 font-light" th:text="${profil.bio}">Bio...</p>
+            </div>
+        </section>
     </div>
 
-   <script>
-	async function updateMissionControl() {
-	    try {
-	        // On interroge ton API Spring Boot qui lit maintenant la DB
-	        const response = await fetch('/data/mission_control.json?t=' + Date.now());
-	        if (!response.ok) throw new Error('Données DB indisponibles');
+    <script>
+        async function updateMissionControl() {
+            try {
+                const response = await fetch('/data/mission_control.json?t=' + Date.now());
+                const rawData = await response.json();
+                const data = Array.isArray(rawData) ? rawData[0] : rawData;
 
-	        const data = await response.json();
-	        console.log("Données reçues de la DB :", data);
-
-	        if (data) {
-	            // 1. Jenkins : On utilise les noms de ton Entité Dashboard.java
-	            const jenkinsText = document.getElementById('jenkins-info');
-	            if (jenkinsText) {
-	                // Note : Spring convertit souvent jenkinsBuildNumber en JSON
-	                jenkinsText.innerText = `#${data.jenkinsBuildNumber || '--'} - ${data.jenkinsStatus || 'N/A'}`;
-	            }
-
-	            // 2. RAM : ramUsageGb vient de ton Entité Java
-	            const ramElement = document.getElementById('ram-usage');
-	            if (ramElement) {
-	                ramElement.innerText = `${data.ramUsageGb || '0'} GB`;
-	            }
-
-	            // 3. Sonar : sonarStatus vient de ton Entité Java
-	            const sonar = document.getElementById('sonar-badge');
-	            if (sonar) {
-	                sonar.innerText = `SONAR: ${data.sonarStatus || 'UNKNOWN'}`;
-	                sonar.style.color = data.sonarStatus === 'PASSED' ? '#2ecc71' : '#e74c3c';
-	            }
-
-	            // 4. Update Time
-	            const lastUpdate = document.getElementById('last-update');
-	            if (lastUpdate) {
-	                lastUpdate.innerText = `Last update: ${data.lastUpdate || 'Just now'}`;
-	            }
-	        }
-	    } catch (error) {
-	        console.error('Erreur Sync Base de données:', error);
-	        const errorElement = document.getElementById('last-update');
-	        if (errorElement) errorElement.innerText = "DB Connection Error - Retrying...";
-	    }
-	}	
-	    // Initialisation des icônes Lucide
-	    //exécution initiale et rafraîchissement toutes les 30 secondes
-	    updateMissionControl();
-	    setInterval(updateMissionControl, 30000);
-
-	    // Initialisation des icônes Lucide
-	    lucide.createIcons();
-</script>
+                if (data) {
+                    // Jenkins
+                    if (data.jenkins) {
+                        document.getElementById('jenkins-info').innerText = `#${data.jenkins.total_jobs || 0} - ${data.jenkins.build_status || 'N/A'}`;
+                    }
+                    // RAM
+                    if (data.infra) {
+                        document.getElementById('ram-usage').innerText = `${data.infra.ram_available_gb || '0'} GB`;
+                    }
+                    // Sonar
+                    if (data.security) {
+                        const sonar = document.getElementById('sonar-badge');
+                        sonar.innerText = `SONAR: ${data.security.sonar_status || 'UNKNOWN'}`;
+                        sonar.style.color = data.security.sonar_status === 'PASSED' ? '#2ecc71' : '#e74c3c';
+                        document.getElementById('last-update').innerText = `Last update: ${data.security.last_scan || 'Just now'}`;
+                    }
+                }
+            } catch (e) { console.error("Sync Error", e); }
+        }
+        updateMissionControl();
+        setInterval(updateMissionControl, 30000);
+        lucide.createIcons();
+    </script>
 </body>
 </html>
