@@ -112,7 +112,33 @@
                 main.innerHTML = `<div class="glass p-10 text-center text-red-400 font-mono italic">ERREUR_SYSTEME: LE MODULE [${name.toUpperCase()}] N'A PAS PU ÊTRE CHARGÉ.</div>`;
                 main.classList.remove('opacity-0');
             }
-        }
+	  }
+
+	  function startTypewriter() {
+	    const source = document.getElementById('bio-source');
+	    const target = document.getElementById('typewriter-target');
+	    
+	    if (!source || !target || target.getAttribute('data-running') === 'true') return;
+
+	    const text = source.innerText;
+	    target.innerText = ""; 
+	    target.setAttribute('data-running', 'true'); // Évite de relancer l'effet si on reclique
+	    
+	    let i = 0;
+	    function type() {
+	        if (i < text.length) {
+	            target.innerText += text.charAt(i);
+	            i++;
+	            // Vitesse aléatoire entre 20ms et 50ms pour faire "humain/réel"
+	            setTimeout(type, Math.random() * (50 - 20) + 20);
+	        } else {
+	            target.setAttribute('data-running', 'false');
+	            // Ajout du bloc de curseur final typique des terminaux
+	            target.innerHTML += '<span class="inline-block w-2 h-5 bg-blue-500 ml-1 animate-pulse"></span>';
+	        }
+	    }
+	    type();
+	}
 
         // --- INITIALISATION AU CHARGEMENT DE LA PAGE ---
         document.addEventListener('DOMContentLoaded', () => {
