@@ -55,6 +55,10 @@
                 updateIfExist('jenkins-info', `#${data.jenkinsBuildNumber || 0} - ${data.jenkinsStatus || 'STABLE'}`);
                 updateIfExist('ram-usage', `${data.ramUsageGb || '0'} GB`);
                 updateIfExist('latency-val', `${Math.floor(Math.random() * (45 - 12) + 12)} ms`);
+		
+		// --- MISE À JOUR DU HEARTBEAT (L'HEURE) ---
+	        // C'est cette ligne qui remplace "Waiting for heartbeat..."
+	        updateIfExist('last-update', `Last heartbeat: ${new Date().toLocaleTimeString()}`);
                 
                 const siteBadge = document.getElementById('site-status-badge');
                 if (siteBadge) {
