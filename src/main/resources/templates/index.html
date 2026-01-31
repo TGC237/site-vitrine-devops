@@ -67,6 +67,11 @@
                         ? "text-[10px] px-2 py-1 rounded border font-bold bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
                         : "text-[10px] px-2 py-1 rounded border font-bold bg-red-500/10 text-red-400 border-red-500/20";
                 }
+		const heartbeatEl = document.getElementById('last-update');
+		if (heartbeatEl) {
+		    heartbeatEl.innerText = `Last heartbeat: ${new Date().toLocaleTimeString('fr-FR')}`;
+		    heartbeatEl.classList.add('text-blue-400'); // Petit flash visuel
+		}
 
                 lucide.createIcons();
             } catch (e) { console.error("Erreur de synchronisation", e); }

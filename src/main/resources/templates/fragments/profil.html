@@ -2,8 +2,8 @@
     <div class="lg:col-span-4 space-y-6">
         <div class="glass p-8 sticky top-8 text-center border-t-4 border-blue-500">
             <div class="relative inline-block group">
-                <img th:src="${profil.photoUrl}" class="w-48 h-48 rounded-2xl object-cover border-2 border-blue-500/20 shadow-2xl">
-                <div class="absolute -bottom-2 -right-2 bg-blue-500 p-2 rounded-lg">
+                <img th:src="${profil.photoUrl != null && profil.photoUrl != '' ? profil.photoUrl : 'https://ui-avatars.com/api/?name=Giresse+Tonleu&background=0D8ABC&color=fff&size=128'}" class="w-48 h-48 rounded-2xl object-cover border-2 border-blue-500 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute -bottom-2 -right-2 bg-blue-600 p-2 rounded-lg shadow-xl">
                     <i data-lucide="shield-check" class="w-4 h-4 text-white"></i>
                 </div>
             </div>
@@ -21,7 +21,7 @@
 
     <div class="lg:col-span-8 space-y-6">
         <div class="glass p-8">
-            <h3 class="text-xs font-mono text-blue-500 mb-4 uppercase tracking-[0.3em] font-bold">// SYSTEM_BIO</h3>
+            <h3 class="text-xs font-mono text-blue-500 mb-4 uppercase tracking-[0.3em] font-bold"> SYSTEM_BIO</h3>
             <p class="text-xl leading-relaxed text-slate-300 font-light italic" th:text="${profil.bio}">Biographie en cours...</p>
         </div>
 
