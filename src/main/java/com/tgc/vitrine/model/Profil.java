@@ -25,4 +25,10 @@ public class Profil {
     private String githubUrl;
     private String linkedinUrl;
     private Boolean isActive;
+    
+    private String instagramUrl;	
+    private String tiktokUrl;
+    private String youtubeUrl;
+    private String facebookUrl;
+    private String photoUrl;
 }

@@ -9,8 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 md:p-8 bg-[#0B0F1A] text-slate-200">
     <div class="max-w-7xl mx-auto space-y-8">
+        
         <nav class="glass p-6 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-blue-500/20">TGC</div>
@@ -19,131 +20,96 @@
                     <p class="text-[10px] text-blue-400 font-mono tracking-widest uppercase">Operator: DevSecOps Engineer</p>
                 </div>
             </div>
-            <div class="flex gap-6 text-sm font-medium text-slate-400">
-                <a href="#dashboard" class="nav-link">DASHBOARD</a>
-                <a href="#profil" class="nav-link">PROFIL</a>
-                <a href="#experiences" class="nav-link">EXPERIENCES</a>
-                <a href="#projets" class="nav-link">PROJECTS</a>
+            <div class="flex gap-4 md:gap-6 text-[10px] md:text-sm font-medium text-slate-400 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+                <a href="javascript:void(0)" onclick="loadModule('dashboard')" class="hover:text-blue-400 transition-colors uppercase whitespace-nowrap">Dashboard</a>
+                <a href="javascript:void(0)" onclick="loadModule('profil')" class="hover:text-blue-400 transition-colors uppercase whitespace-nowrap">Profil</a>
+                <a href="javascript:void(0)" onclick="loadModule('experiences')" class="hover:text-blue-400 transition-colors uppercase whitespace-nowrap">Expériences</a>
+                <a href="javascript:void(0)" onclick="loadModule('projets')" class="hover:text-blue-400 transition-colors uppercase whitespace-nowrap">Projets</a>
+                <a href="javascript:void(0)" onclick="loadModule('contact')" class="hover:text-blue-400 transition-colors uppercase whitespace-nowrap">Contact</a>
             </div>
         </nav>
 
-        <section id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass p-6 flex flex-col justify-between group">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">CI/CD Pipeline</span>
-                    <i data-lucide="refresh-cw" class="w-4 h-4 text-blue-400 animate-spin"></i>
-                </div>
-                <div class="mt-4">
-                    <h3 class="text-2xl font-bold italic">Jenkins Build</h3>
-                    <div class="flex items-center gap-2 mt-2">
-                        <div id="jenkins-status-dot" class="w-3 h-3 bg-green-500 rounded-full status-glow"></div>
-                        <span id="jenkins-info" class="text-green-400 font-mono text-sm">#-- - STABLE</span>
-                    </div>
-                </div>
-                <p id="last-update" class="text-[10px] text-slate-500 mt-4 italic">Waiting for heartbeat...</p>
+        <main id="main-display" class="transition-all duration-500 opacity-100 translate-y-0 min-h-[400px]">
+            <div class="flex flex-col items-center justify-center py-20 space-y-4">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
+                <p class="text-xs font-mono text-slate-500 uppercase tracking-widest">Initialisation du système...</p>
             </div>
-
-            <div class="glass p-6 md:col-span-2 relative overflow-hidden">
-                <div class="flex justify-between items-start mb-4">
-                    <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">Live Infrastructure Monitoring</span>
-                    <div class="flex gap-2">
-                        <span id="site-status-badge" class="text-[10px] px-2 py-1 rounded border font-bold shadow-sm transition-all duration-500">
-                             SITES: --
-                        </span>
-                        <span id="sonar-badge" class="text-[10px] bg-emerald-500/10 px-2 py-1 rounded text-emerald-400 border border-emerald-500/20 font-bold">SONAR: PASSED
-			</span>
-                        <span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-blue-300 border border-blue-500/20">Debian 12 Live</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center py-4">
-                    <div>
-                        <p class="text-[10px] text-slate-500 font-mono uppercase">RAM Resource</p>
-                        <p id="ram-usage" class="text-3xl font-black text-white">-- GB</p>
-                    </div>
-                    <div class="border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pl-0 md:pl-4">
-                        <p class="text-[10px] text-slate-500 font-mono uppercase">Response Latency</p>
-                        <p id="latency-val" class="text-2xl font-bold text-blue-400">-- ms</p>
-                    </div>
-                    <div class="border-l border-white/10 pl-4">
-                        <p class="text-[10px] text-slate-500 font-mono uppercase">SSL Certificate</p>
-                        <div id="ssl-status" class="flex items-center gap-2 text-emerald-400 font-bold">
-                            <i data-lucide="shield-check" class="w-4 h-4"></i>
-                            <span>SECURE</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="profil" th:if="${profil != null}" class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="glass p-8 md:col-span-1 flex flex-col items-center text-center">
-                <div class="w-24 h-24 bg-gradient-to-tr from-blue-600 to-emerald-400 rounded-3xl mb-4 rotate-3 shadow-xl"></div>
-                <h2 class="text-xl font-bold" th:text="${profil.prenom + ' ' + profil.nom}">Giresse Cédric</h2>
-                <p class="text-blue-400 text-sm mb-4" th:text="${profil.titre}">Ingénieur DevSecOps</p>
-                <div class="space-y-3 text-xs text-slate-400 border-t border-white/5 pt-6 w-full text-left font-mono">
-                    <p class="flex justify-between"><span>ORIGINE:</span> <span class="text-white uppercase" th:text="${profil.origine}">France</span></p>
-                    <p class="flex justify-between"><span>DIPLÔME:</span> <span class="text-white uppercase" th:text="${profil.diplome}">Master</span></p>
-                </div>
-            </div>
-            <div class="glass p-8 md:col-span-3">
-                <h3 class="text-xs font-mono text-blue-500 mb-2 uppercase tracking-widest font-bold">// À propos</h3>
-                <p class="text-lg leading-relaxed text-slate-300 font-light" th:text="${profil.bio}">Chargement de la bio...</p>
-            </div>
-        </section>
+        </main>
     </div>
 
     <script>
+        // --- LOGIQUE DE MONITORING (Garde tes données vivantes) ---
         async function updateMissionControl() {
             try {
                 const response = await fetch('/data/mission_control.json?t=' + Date.now());
                 const rawData = await response.json();
                 const data = Array.isArray(rawData) ? rawData[0] : rawData;
-
                 if (!data) return;
 
-                // 1. Gestion des SITES (UP/DOWN)
+                // Mise à jour sécurisée : on vérifie si l'ID existe avant d'écrire
+                const updateIfExist = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) el.innerText = value;
+                };
+
+                updateIfExist('jenkins-info', `#${data.jenkinsBuildNumber || 0} - ${data.jenkinsStatus || 'STABLE'}`);
+                updateIfExist('ram-usage', `${data.ramUsageGb || '0'} GB`);
+                updateIfExist('latency-val', `${Math.floor(Math.random() * (45 - 12) + 12)} ms`);
+                
                 const siteBadge = document.getElementById('site-status-badge');
-                if (siteBadge && data.siteStatus) {
+                if (siteBadge) {
                     siteBadge.innerText = `SITES: ${data.siteStatus}`;
-                    
-                    if (data.siteStatus === 'ALL ONLINE') {
-                        siteBadge.className = "text-[10px] px-2 py-1 rounded border font-bold bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                    } else if (data.siteStatus === 'SSL WARN') {
-                        siteBadge.className = "text-[10px] px-2 py-1 rounded border font-bold bg-amber-500/10 text-amber-400 border-amber-500/20";
-                    } else {
-                        siteBadge.className = "text-[10px] px-2 py-1 rounded border font-bold bg-red-500/10 text-red-400 border-red-500/20";
-                    }
+                    siteBadge.className = data.siteStatus === 'ALL ONLINE' 
+                        ? "text-[10px] px-2 py-1 rounded border font-bold bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                        : "text-[10px] px-2 py-1 rounded border font-bold bg-red-500/10 text-red-400 border-red-500/20";
                 }
-
-                // 2. Gestion du SSL
-                const sslDiv = document.getElementById('ssl-status');
-                if (data.siteStatus === 'SSL WARN') {
-                    sslDiv.innerHTML = '<i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i><span class="text-amber-500 font-bold uppercase">EXPIRING SOON</span>';
-                } else {
-                    sslDiv.innerHTML = '<i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i><span class="text-emerald-500 font-bold uppercase">SECURE</span>';
-                }
-
-                // 3. Jenkins & RAM
-                document.getElementById('jenkins-info').innerText = `#${data.jenkinsBuildNumber || 0} - ${data.jenkinsStatus || 'STABLE'}`;
-                document.getElementById('ram-usage').innerText = `${data.ramUsageGb || '0'} GB`;
-
-                // 4. Latence (Simulée ou via DB si tu l'ajoutes)
-                // Note: Ici on peut mettre une valeur fixe ou la récupérer si tu modifies ta table
-                document.getElementById('latency-val').innerText = `${Math.floor(Math.random() * (45 - 12) + 12)} ms`;
-
-                // 5. Sonar & Date
-                const sonar = document.getElementById('sonar-badge');
-                sonar.innerText = `SONAR: ${data.sonarStatus || 'PASSED'}`;
-                document.getElementById('last-update').innerText = `Last heartbeat: ${new Date().toLocaleTimeString()}`;
 
                 lucide.createIcons();
-            } catch (e) { console.error("Sync Error", e); }
+            } catch (e) { console.error("Erreur de synchronisation", e); }
         }
 
-        updateMissionControl();
-        setInterval(updateMissionControl, 30000);
-        lucide.createIcons();
+        // --- MOTEUR DE NAVIGATION (Injection de fragments) ---
+        async function loadModule(name) {
+            const main = document.getElementById('main-display');
+            if (!main) return;
+
+            // Transition de sortie
+            main.classList.add('opacity-0', 'translate-y-4');
+
+            // Gestion visuelle du menu actif
+            document.querySelectorAll('nav a').forEach(link => {
+                const isActive = link.getAttribute('onclick').includes(name);
+                link.classList.toggle('text-blue-400', isActive);
+                link.classList.toggle('font-bold', isActive);
+                link.classList.toggle('text-slate-400', !isActive);
+            });
+
+            try {
+                // On va chercher le fragment HTML sur le serveur
+                const response = await fetch(`/fragments/${name}`);
+                if (!response.ok) throw new Error('Fragment introuvable');
+                const html = await response.text();
+                
+                setTimeout(() => {
+                    main.innerHTML = html; // Injection !
+                    main.classList.remove('opacity-0', 'translate-y-4'); // Transition d'entrée
+                    lucide.createIcons(); // Recréation des icônes pour le nouveau contenu
+                    
+                    // Si on charge le dashboard, on force une mise à jour immédiate des datas
+                    if (name === 'dashboard') updateMissionControl();
+                }, 300);
+            } catch (e) {
+                console.error("Erreur de chargement :", e);
+                main.innerHTML = `<div class="glass p-10 text-center text-red-400 font-mono italic">ERREUR_SYSTEME: LE MODULE [${name.toUpperCase()}] N'A PAS PU ÊTRE CHARGÉ.</div>`;
+                main.classList.remove('opacity-0');
+            }
+        }
+
+        // --- INITIALISATION AU CHARGEMENT DE LA PAGE ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadModule('dashboard'); // On charge le Dashboard par défaut (l'accueil)
+            setInterval(updateMissionControl, 30000); // Monitoring toutes les 30s
+        });
     </script>
 </body>
 </html>
