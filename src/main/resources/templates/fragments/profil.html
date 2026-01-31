@@ -1,4 +1,3 @@
-
 <div th:fragment="profil-content" class="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
     <div class="lg:col-span-4 space-y-6">
         <div class="glass p-8 sticky top-8 text-center">
@@ -17,13 +16,11 @@
             </div>
         </div>
     </div>
-
     <div class="lg:col-span-8 space-y-6">
         <div class="glass p-8">
             <h3 class="text-xs font-mono text-blue-500 mb-4 uppercase tracking-[0.3em] font-bold">// SYSTEM_BIO</h3>
             <p class="text-xl leading-relaxed text-slate-300 font-light italic" th:text="${profil.bio}">Chargement de la biographie...</p>
         </div>
-        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="glass p-6 border-l-2 border-emerald-500/30">
                 <h4 class="text-[10px] font-mono text-slate-500 uppercase mb-2">Academic Path</h4>
@@ -33,6 +30,12 @@
                 <h4 class="text-[10px] font-mono text-slate-500 uppercase mb-2">Core Qualities</h4>
                 <p class="text-sm text-white" th:text="${profil.qualites}">Rigueur & Automatisation</p>
             </div>
+	<button onclick="startBioMovie()" class="w-full py-4 glass border-blue-500/30 text-blue-400 font-bold hover:bg-blue-500 hover:text-white transition-all group">
+            <span class="flex items-center justify-center gap-2">
+                <i data-lucide="play" class="w-4 h-4 group-hover:animate-ping"></i>
+                DÉPLOYER LA VISION STRATÉGIQUE
+            </span>
+        </button>
         </div>
     </div>
 </div>
