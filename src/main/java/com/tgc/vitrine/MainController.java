@@ -31,26 +31,29 @@ public class MainController {
         Profil profil = profilRepository.findById(1L).orElse(null);
         model.addAttribute("profil", profil);
 
-        return "index";
+ 	       return "index";
     }
 
     // 2. LE MOTEUR DE NAVIGATION : Charge chaque section dynamiquement
-    @GetMapping("/fragments/{name}")
-    public String getFragment(@PathVariable String name, Model model) {
-        // On récupère systématiquement le profil (besoin pour Profil, Expériences, Projets, Contact)
-        Profil profil = profilRepository.findById(1L).orElse(null);
-        model.addAttribute("profil", profil);
+    
+	@GetMapping("/fragments/{name}")
+	public String getFragment(@PathVariable String name, Model model) {
+	    // 1. On récupère le profil (ID 1L) pour toutes les sections
+	    // Si profil est null, Thymeleaf plantera. On met un "new Profil()" par sécurité.
+	    Profil profil = profilRepository.findById(1L).orElse(new Profil());
+	    model.addAttribute("profil", profil);
 
-        // Si l'utilisateur demande le dashboard, on rafraîchit les métriques
-        if (name.equals("dashboard")) {
-            Dashboard dashboard = dashboardRepository.findLatestStatus();
-            model.addAttribute("dashboard", (dashboard != null) ? dashboard : new Dashboard());
-        }
+	    // 2. Gestion spécifique du Dashboard
+	    if ("dashboard".equals(name)) {
+	        Dashboard dashboard = dashboardRepository.findLatestStatus();
+	        model.addAttribute("dashboard", (dashboard != null) ? dashboard : new Dashboard());
+	    }
 
-        // Spring cherche automatiquement dans : src/main/resources/templates/fragments/[name].html
-        return "fragments/" + name;
+            // 3. LOG DE DEBUG (Très utile pour toi en console)
+            System.out.println("DEBUG: Requête reçue pour le fragment: " + name);
+	    // Spring cherche dans : src/main/resources/templates/fragments/[name].html
+	    return "fragments/" + name;
     }
-
     // 3. L'API JSON : Pour ton script de mise à jour automatique (Dashboard)
     @GetMapping("/data/mission_control.json")
     @ResponseBody
