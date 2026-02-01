@@ -120,7 +120,7 @@
 	    
 	    if (!source || !target || target.getAttribute('data-running') === 'true') return;
 
-	    const text = source.textContent.trim();
+	    const text = source.textContent;
 	    target.innerText = ""; 
 	    target.setAttribute('data-running', 'true'); // Évite de relancer l'effet si on reclique
 	    
