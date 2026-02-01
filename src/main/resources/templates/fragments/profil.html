@@ -2,11 +2,12 @@
     <div class="lg:col-span-4 space-y-6">
         <div class="glass p-8 sticky top-8 text-center border-t-4 border-blue-500">
             <div class="relative inline-block group">
-                <img th:src="${profil.photoUrl != null && profil.photoUrl != '' ? profil.photoUrl : 'https://ui-avatars.com/api/?name=Giresse+Tonleu&background=0D8ABC&color=fff&size=128'}" class="w-48 h-48 rounded-2xl object-cover border-2 border-blue-500 shadow-lg group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute -bottom-2 -right-2 bg-blue-600 p-2 rounded-lg shadow-xl">
-                    <i data-lucide="shield-check" class="w-4 h-4 text-white"></i>
+                <img th:src="${profil.photoUrl != null && profil.photoUrl != '' ? profil.photoUrl : 'https://api.dicebear.com/7.x/bottts/svg?seed=Giresse'}" 
+                    class="w-48 h-48 rounded-2xl object-cover border-2 border-blue-500 shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:border-blue-400">
+                
+                <div class="absolute -bottom-2 -right-2 bg-blue-600 p-2 rounded-lg shadow-lg">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
                 </div>
-            </div>
             <h1 class="text-3xl font-black italic mt-6 text-white uppercase" th:text="${profil.prenom + ' ' + profil.nom}">Nom Prénom</h1>
             <p class="text-blue-400 font-mono text-xs tracking-widest mt-2 uppercase" th:text="${profil.titre}">DevSecOps Engineer</p>
             
